@@ -24,15 +24,7 @@ jobs:
               sudo apt install -y gdisk dosfstools gcc-riscv64-linux-gnu \
                                   libncurses-dev gawk flex bison openssl libssl-dev tree \
                                   dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf device-tree-compiler
-                                  
-
-      - name: Checkout kernel
-        uses: actions/checkout@v3
-        with:
-            repository: 'starfive-tech/linux'
-            ref: 'JH7110_VisionFive2_devel'
-            path: 'linux/kernel'
-            
+                                           
       - name: Checkout opensbi
         uses: actions/checkout@v3
         with:
@@ -81,6 +73,8 @@ jobs:
         run: |
               cd  ${GITHUB_WORKSPACE}/linux/Tools
               spl_tool/spl_tool -h
+              ls -ltr ${UBOOT_BIN}
+              echo ${UBOOT_BIN}
               spl_tool/spl_tool -c -f ${UBOOT_BIN}
               mkdir ../starfive
               cp u-boot-spl.bin.normal.out ../starfive
