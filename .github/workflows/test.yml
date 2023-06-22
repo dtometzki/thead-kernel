@@ -73,14 +73,11 @@ jobs:
         run: |
               
               pushd linux/u-boot
-                ${GITHUB_WORKSPACE}/linux/Toolsspl_tool/spl_tool -h
-                ${GITHUB_WORKSPACE}/linux/Toolsspl_tool/spl_tool -c -f spl/u-boot-spl.bin
+                ${GITHUB_WORKSPACE}/linux/Tools/spl_tool/spl_tool -h
+                ${GITHUB_WORKSPACE}/linux/Tools/spl_tool/spl_tool -c -f spl/u-boot-spl.bin
+                mkdir ${GITHUB_WORKPACE}/linux/Tools/starfive
+                cp u-boot-spl.bin.normal.out ${GITHUB_WORKPACE}/linux/Tools/starfive
               popd
-              # mkdir ../starfive
-              # sudo cp u-boot-spl.bin.normal.out ../starfive
-              # sudo cp ../uboot_its/visionfive2_fw_payload.img ../starfive
-              # cp ${GITHUB_WORKSPACE}/linux/*.deb ../starfive
-              tree -L 2 ${GITHUB_WORKSPACE}/linux/Tools/starfive
             
       - name: Build Kernel
         run: |
