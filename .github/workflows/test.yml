@@ -9,8 +9,8 @@ env:
   ARCH: riscv
   FW_PAYLOAD_PATH: ${GITHUB_WORKSPACE}/linux/u-boot/u-boot.bin
   FW_FDT_PATH: ${GITHUB_WORKSPACE}/linux/u-boot/arch/riscv/dts/starfive_visionfive2.dtb FW_TEXT_START=0x40000000
-  Uboot_PATH: ${GITHUB_WORKSPACE}/linux/u-boot
-  SPL_TOOL: ${Uboot_PATH}/spl/u-boot-spl.bin
+  UBOOT_BIN: ${GITHUB_WORKSPACE}/linux/u-boot/spl/u-boot-spl.bin
+  
   
 
 jobs:
@@ -81,7 +81,7 @@ jobs:
         run: |
               cd  ${GITHUB_WORKSPACE}/linux/Tools
               spl_tool/spl_tool -h
-              spl_tool/spl_tool -c -f ${SPL_TOOL}
+              spl_tool/spl_tool -c -f ${UBOOT_BIN}
               mkdir ../starfive
               cp u-boot-spl.bin.normal.out ../starfive
               cp ../uboot_its/visionfive2_fw_payload.img ../starfive
