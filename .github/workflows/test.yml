@@ -64,8 +64,6 @@ jobs:
               pushd linux/u-boot
                 make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
                 make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
-                cd ${GITHUB_WORKSPACE}/linux/Tools/spl_tool/
-                ./spl_tool ${GITHUB_WORKSPACE}/linux/u-boot/spl/u-boot-spl.bin 0x01010101
               popd
               
       - name: Build opensbi
@@ -77,6 +75,17 @@ jobs:
                 ${GITHUB_WORKSPACE}/linux/u-boot/tools/mkimage -f visionfive2-uboot-fit-image.its -A riscv -O u-boot -T firmware visionfive2_fw_payload.img
               popd
               
+      - name: Build all
+        run: |
+            pushd linux/Tools/spl_tool
+              ./spl_tool ${GITHUB_WORKSPACE}/linux/u-boot/spl/u-boot-spl.bin 0x01010101
+              mkdir ../starfive
+              cp u-boot-spl.bin.normal.out ../starfive
+              cp ../uboot_its/visionfive2_fw_payload.img ../starfive
+              # cp ${GITHUB_WORKSPACE}/linux/*.deb ../starfive
+              tree -L 2 ${GITHUB_WORKSPACE}/linux/Tools/starfive
+            popd
+            
       - name: Build Kernel
         run: |
               # pushd linux/kernel
