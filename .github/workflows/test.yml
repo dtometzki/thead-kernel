@@ -28,14 +28,14 @@ jobs:
             ref: 'JH7110_VisionFive2_devel'
             path: 'linux/kernel'
             
-      - name: Checkout kernel
+      - name: Checkout opensbi
         uses: actions/checkout@v3
         with:
             repository: 'starfive-tech/opensbi'
             ref: 'master'
             path: 'linux/opensbi'
             
-      - name: Checkout kernel
+      - name: Checkout u-boot
         uses: actions/checkout@v3
         with:
             repository: 'starfive-tech/u-boot'
