@@ -42,16 +42,31 @@ jobs:
             ref: 'JH7110_VisionFive2_devel'
             path: 'linux/u-boot'
             
+      - name: Checkout Tools
+        uses: actions/checkout@v3
+        with:
+            repository: 'starfive-tech/Tools'
+            ref: 'master'
+            path: 'linux/Tools'
             
-            
-      - name: Compile Kernel && Install
+      - name: Build Tools
         run: |
-              tree -L 2 ${GITHUB_WORKSPACE}/linux/
+              tree -L 2 ${GITHUB_WORKSPACE}/linux/Tools/
+              pushd linux/Tools/spl_tool
+              make
+              cd ../uboot_its
+              make
+              popd
+      - name: Build u-boot
+        run: |
+              # pushd linux/u-boot
+                # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
+                # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
+              # popd
+              
+      - name: Build Kernel
+        run: |
               # pushd linux/kernel
                 # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
                 # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc) bindeb-pkg
               # popd
-              pushd linux/u-boot
-                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
-                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
-              popd
