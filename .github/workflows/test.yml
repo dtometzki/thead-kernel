@@ -64,7 +64,7 @@ jobs:
               pushd linux/u-boot
                 make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
                 make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
-                ${GITHUB_WORKSPACE}/linux/Tools/spl_tool
+                cd ${GITHUB_WORKSPACE}/linux/Tools/spl_tool/
                 ./sbl_tool ${GITHUB_WORKSPACE}/linux/u-boot/spl/u-boot-spl.bin 0x01010101
               popd
               
