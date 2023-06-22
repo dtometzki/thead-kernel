@@ -82,7 +82,7 @@ jobs:
               echo $(pwd)
               
       - name: compress
-        run: tar -zcvf Vf2_firmware.tar.gz --directory=linux/Tools/starfive *
+        run: tar -zcvf Vf2_firmware.tar.gz -C linux/Tools/starfive/ .
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
