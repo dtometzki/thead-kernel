@@ -71,7 +71,7 @@ jobs:
               
       - name: Build all
         run: |
-              mkdir ${GITHUB_WORKPACE}/linux/Tools/starfive
+              mkdir linux/Tools/starfive
               pushd linux/u-boot
                 ${GITHUB_WORKSPACE}/linux/Tools/spl_tool/spl_tool -c -f spl/u-boot-spl.bin
                 cp u-boot-spl.bin.normal.out ${GITHUB_WORKPACE}/linux/Tools/starfive
