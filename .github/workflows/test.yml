@@ -67,6 +67,7 @@ jobs:
               popd
               
       - name: Build opensbi
+        run: |
               pushd linux/opensbi
                 make PLATFORM=generic FW_PAYLOAD_PATH=${FW_PAYLOAD_PATH} FW_FDT_PATH=${FW_FDT_PATH}
               popd
