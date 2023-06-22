@@ -80,6 +80,16 @@ jobs:
                 ls -ltr ../Tools/starfive
               popd
               echo $(pwd)
+              
+      - name: compress
+        run: tar -zcvf Vf2_firmware.tar.gz linux/Tools/starfive
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: Vf2_firmware.tar.gz
+          path: Vf2_firmware.tar.gz
+          retention-days: 30
             
       - name: Build Kernel
         run: |
