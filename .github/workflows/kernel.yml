@@ -1,12 +1,8 @@
 name: revyos-kernel-build
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
-  schedule:
-    - cron: "0 2 * * *"
-
+  
 env:
   xuetie_toolchain: https://occ-oss-prod.oss-cn-hangzhou.aliyuncs.com/resource//1663142514282
   toolchain_file_name: Xuantie-900-gcc-linux-5.10.4-glibc-x86_64-V2.6.1-20220906.tar.gz
