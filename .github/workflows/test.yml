@@ -65,7 +65,7 @@ jobs:
                 make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
                 make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
                 ${GITHUB_WORKSPACE}/linux/Tools/spl_tool
-                ./create_sbl ${GITHUB_WORKSPACE}/linux/u-boot/spl/u-boot-spl.bin 0x01010101
+                ./sbl_tool ${GITHUB_WORKSPACE}/linux/u-boot/spl/u-boot-spl.bin 0x01010101
               popd
               
       - name: Build opensbi
