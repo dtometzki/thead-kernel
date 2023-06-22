@@ -7,6 +7,9 @@ on:
 env:
   toolchain_tripe: riscv64-linux-gnu-
   ARCH: riscv
+  FW_PAYLOAD_PATH: ${GITHUB_WORKSPACE}/linux/u-boot/u-boot.bin
+  FW_FDT_PATH: ${GITHUB_WORKSPACE}/linux/u-boot/arch/riscv/dts/starfive_visionfive2.dtb FW_TEXT_START=0x40000000
+  
 
 jobs:
   kernel:
@@ -58,10 +61,15 @@ jobs:
               
       - name: Build u-boot
         run: |
-              # pushd linux/u-boot
-                # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
-                # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
-              # popd
+              pushd linux/u-boot
+                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
+                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
+              popd
+              
+      - name: Build opensbi
+              pushd linux/opensbi
+                make PLATFORM=generic FW_PAYLOAD_PATH=${FW_PAYLOAD_PATH} FW_FDT_PATH=${FW_FDT_PATH}
+              popd
               
       - name: Build Kernel
         run: |
