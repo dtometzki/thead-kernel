@@ -28,10 +28,26 @@ jobs:
             ref: 'JH7110_VisionFive2_devel'
             path: 'linux/kernel'
             
+      - name: Checkout kernel
+        uses: actions/checkout@v3
+        with:
+            repository: 'starfive-tech/opensbi'
+            ref: 'master'
+            path: 'linux/opensbi'
+            
+      - name: Checkout kernel
+        uses: actions/checkout@v3
+        with:
+            repository: 'starfive-tech/u-boot'
+            ref: 'JH7110_VisionFive2_devel'
+            path: 'linux/u-boot'
+            
+            
+            
       - name: Compile Kernel && Install
         run: |
-              
-              pushd linux/kernel
-                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
-                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc) bindeb-pkg
-              popd
+              tree ${GITHUB_WORKSPACE}/linux/
+              # pushd linux/kernel
+                # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
+                # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc) bindeb-pkg
+              # popd
