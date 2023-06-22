@@ -77,7 +77,7 @@ jobs:
                 ${GITHUB_WORKSPACE}/linux/Tools/spl_tool/spl_tool -c -f spl/u-boot-spl.bin
                 cp spl/u-boot-spl.bin.normal.out ../Tools/starfive
                 cp ../Tools/uboot_its/visionfive2_fw_payload.img ../Tools/starfive
-                tree -L2 ../Tools/starfive
+                ls -ltr ../Tools/starfive
               popd
               echo $(pwd)
             
