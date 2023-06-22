@@ -1,0 +1,36 @@
+name: starfive kernel
+
+on:
+  workflow_dispatch:
+ 
+
+env:
+  toolchain_tripe: riscv64-unknown-linux-gnu-
+  ARCH: riscv
+
+jobs:
+  kernel:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Install software
+        run: |
+              sudo apt update && \
+              sudo apt install -y gdisk dosfstools g++-12-riscv64-linux-gnu build-essential \
+                                  libncurses-dev gawk flex bison openssl libssl-dev tree \
+                                  dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf device-tree-compiler
+
+      - name: Checkout kernel
+        uses: actions/checkout@v3
+        with:
+            repository: 'starfive-tech/linux'
+            ref: 'JH7110_VisionFive2_devel'
+            path: 'linux/kernel'
+            
+      - name: Compile Kernel && Install
+        run: |
+              
+              pushd linux/kernel
+                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
+                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
+              popd
