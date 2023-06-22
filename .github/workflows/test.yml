@@ -51,12 +51,11 @@ jobs:
             
       - name: Build Tools
         run: |
+              
+              cd  ${GITHUB_WORKSPACE}/linux/Tools/spl_tool
+              make
               tree -L 2 ${GITHUB_WORKSPACE}/linux/Tools/
-              pushd linux/Tools/spl_tool
-              make
-              cd ../uboot_its
-              make
-              popd
+              
       - name: Build u-boot
         run: |
               # pushd linux/u-boot
