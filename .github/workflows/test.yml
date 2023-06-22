@@ -52,5 +52,6 @@ jobs:
                 # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc) bindeb-pkg
               # popd
               pushd linux/u-boot
+                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
                 make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
               popd
