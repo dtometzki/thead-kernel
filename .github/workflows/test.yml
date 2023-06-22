@@ -33,5 +33,5 @@ jobs:
               
               pushd linux/kernel
                 make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
-                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc)
+                make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc) bindeb-pkg
               popd
