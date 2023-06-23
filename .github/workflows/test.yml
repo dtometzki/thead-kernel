@@ -46,6 +46,21 @@ jobs:
             ref: 'master'
             path: 'linux/Tools'
             
+      - name: Checkout kernel
+        uses: actions/checkout@v3
+        with:
+            repository: 'starfive-tech/kernel'
+            ref: 'JH7110_VisionFive2_devel'
+            path: 'linux/kernel'      
+            
+      - name: Build Kernel
+        run: |
+            pushd linux/kernel
+              make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
+              make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc) bindeb-pkg
+            popd
+
+            
       - name: Build Tools
         run: |
               
@@ -77,6 +92,7 @@ jobs:
                 ${GITHUB_WORKSPACE}/linux/Tools/spl_tool/spl_tool -c -f spl/u-boot-spl.bin
                 cp spl/u-boot-spl.bin.normal.out ../Tools/starfive
                 cp ../Tools/uboot_its/visionfive2_fw_payload.img ../Tools/starfive
+                cp ../*.deb ../Tools/starfive
                 ls -ltr ../Tools/starfive
               popd
               echo $(pwd)
@@ -91,9 +107,4 @@ jobs:
           path: Vf2_firmware.tar.gz
           retention-days: 30
             
-      - name: Build Kernel
-        run: |
-              # pushd linux/kernel
-                # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} starfive_visionfive2_defconfig
-                # make CROSS_COMPILE=${toolchain_tripe} ARCH=${ARCH} -j$(nproc) bindeb-pkg
-              # popd
+     
