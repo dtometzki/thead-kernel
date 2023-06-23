@@ -49,7 +49,7 @@ jobs:
       - name: Checkout kernel
         uses: actions/checkout@v3
         with:
-            repository: 'starfive-tech/kernel'
+            repository: 'starfive-tech/linux'
             ref: 'JH7110_VisionFive2_devel'
             path: 'linux/kernel'      
             
